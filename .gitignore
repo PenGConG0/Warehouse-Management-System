@@ -17,3 +17,10 @@ Thumbs.db
 
 # 项目文档
 项目文档.docx
+
+# 构建产物
+frontend/dist/
+backend/src/main/resources/static/
+
+# 发布包
+release/

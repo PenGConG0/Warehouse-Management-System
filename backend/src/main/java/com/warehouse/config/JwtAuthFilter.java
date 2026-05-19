@@ -26,8 +26,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // 放行登录接口
-        if (path.equals("/auth/login")) {
+        // 放行登录接口和静态资源
+        if (path.equals("/auth/login")
+                || path.equals("/")
+                || path.startsWith("/assets/")
+                || path.contains(".")
+                || path.startsWith("/js/")
+                || path.startsWith("/css/")) {
             filterChain.doFilter(request, response);
             return;
         }
