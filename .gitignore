@@ -1,0 +1,19 @@
+# IDE
+.idea/
+*.iml
+
+# Claude
+.claude/
+
+# Node
+node_modules/
+
+# Maven
+backend/target/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 项目文档
+项目文档.docx
