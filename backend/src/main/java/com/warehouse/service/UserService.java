@@ -4,6 +4,7 @@ import com.warehouse.dto.LoginDTO;
 import com.warehouse.entity.User;
 import com.warehouse.mapper.UserMapper;
 import com.warehouse.util.JwtUtil;
+import com.warehouse.util.MD5Util;
 import com.warehouse.util.Result;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class UserService {
                 new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<User>()
                         .eq(User::getUsername, dto.getUsername())
         );
-        if (user == null || !user.getPassword().equals(dto.getPassword())) {
+        if (user == null || !user.getPassword().equals(MD5Util.md5(dto.getPassword()))) {
             return Result.error("用户名或密码错误");
         }
 
@@ -47,7 +48,7 @@ public class UserService {
     }
 
     public Result<Void> addUser(User user) {
-        user.setPassword("123456");
+        user.setPassword(MD5Util.md5("123456"));
         user.setCreateTime(new Date());
         userMapper.insert(user);
         return Result.success();
@@ -63,7 +64,7 @@ public class UserService {
         if (user == null) {
             return Result.error("用户不存在");
         }
-        user.setPassword(newPassword);
+        user.setPassword(MD5Util.md5(newPassword));
         userMapper.updateById(user);
         return Result.success();
     }
